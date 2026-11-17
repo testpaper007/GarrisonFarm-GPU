@@ -70,7 +70,10 @@ OrtInferSession - INFO: Windows 10 or above detected, try to use DirectML as pri
 
 ## 六、环境要求与注意事项
 
-- Windows 10 及以上，显卡需支持 **DirectX 12**，显卡驱动保持较新（NVIDIA 472+ 均可）；
+- Windows 10 及以上，显卡需支持 **DirectX 12**，显卡驱动保持较新（NVIDIA 472+ / AMD Adrenalin 22.x+ 均可）；
+- **NVIDIA / AMD / Intel 显卡都能用**：DirectML 是 DX12 通用后端，与显卡厂商无关，也不需要安装 CUDA / cuDNN；
+- 多显卡机器（核显 + 独显）注意：配置里没有指定适配器的选项，默认取系统中的第 0 号显卡，可能是核显。如果日志正常但速度没明显变化，去「设置 → 系统 → 显示 → 图形 → 添加 `GarrisonFarm.exe` → 高性能」指定独显即可；
+- 显卡或驱动不支持时不会崩溃：DirectML 会话建不起来会自动回落到 CPU（日志里不会出现 `try to use DirectML as primary provider`），更新驱动或运行 `还原CPU版.bat` 即可；
 - 本版本只对应上游 **v1.2**。上游若发布新版本，`_internal` 结构可能变化，补丁需要重打；
 - 补丁不联网、不写注册表、不改系统文件，所有改动都在程序目录内；
 - 模拟器、游戏账号相关的一切仍由原程序处理，与本修改无关。
